@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Resep;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ResepController extends Controller
 {
@@ -31,13 +32,20 @@ class ResepController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'deskripsi' => 'nullable'
+            'deskripsi' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi file foto
         ]);
 
+        $photoPath = null;
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+        }
+
         Resep::create([
-            'name' => $request->input('name'),
-            'deskripsi' => $request->input('deskripsi'),
-            'user_id' => auth()->id(), // Jika Anda menggunakan otentikasi pengguna
+            'name' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'photo' => $photoPath, // Simpan path foto ke database
         ]);
 
 
@@ -69,12 +77,26 @@ class ResepController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'deskripsi' => 'nullable'
+            'deskripsi' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
         ]);
 
-        $resep->update($request->all());
+        $data = $request->all();
 
-        return redirect()->route('reseps.index')->with('success', 'Resep Sudah di Update');
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($resep->photo && Storage::exists('public/' . $resep->photo)) {
+                Storage::delete('public/' . $resep->photo);
+            }
+
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $data['photo'] = $photoPath;
+        }
+
+        $resep->update($data);
+
+        return redirect()->route('reseps.index')->with('success', 'Resep updated successfully.');
     }
 
     /**

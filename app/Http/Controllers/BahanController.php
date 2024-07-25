@@ -27,10 +27,10 @@ class BahanController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
+            'deskripsi' => 'require d|string',
             'quantity' => 'required|integer',
             'unit' => 'required|string',
-            'resep_id' => 'required|exists:reseps,id', 
+            'resep_id' => 'required|exists:reseps,id',
         ]);
 
         Bahan::create($request->all());
@@ -60,13 +60,14 @@ class BahanController extends Controller
 
         $bahan->update($request->all());
 
-        return redirect()->route('bahans.index')->with('success', 'Bahan updated successfully.');
+        return redirect()->route('reseps.show', $bahan->resep_id)->with('success', 'Bahan updated successfully.');
     }
 
     public function destroy(Bahan $bahan)
     {
+        $resepId = $bahan->resep_id; // Ambil ID resep yang terkait dengan bahan
         $bahan->delete();
 
-        return redirect()->route('bahans.index')->with('success', 'Bahan deleted successfully.');
+        return redirect()->route('reseps.show', $resepId)->with('success', 'Bahan deleted successfully.');
     }
 }

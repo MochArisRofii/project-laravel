@@ -12,7 +12,8 @@ class Resep extends Model
     protected $fillable = [
         'name',
         'deskripsi', 
-        'user_id'
+        'user_id',
+        'photo'
     ];
 
     public function user()

@@ -27,6 +27,8 @@ Route::get('/', [ResepController::class, 'index'])->name('home');
 
 // Rute CRUD untuk resep
 Route::resource('reseps', ResepController::class);
+Route::get('reseps/{resep}', [ResepController::class, 'show'])->name('reseps.show');
+
 
 
 Route::resource('bahans', BahanController::class);
