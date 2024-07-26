@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Masakan</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,7 +35,7 @@
             padding: 12px 24px;
             margin-bottom: 30px;
             background-color: #4CAF50;
-            color: white;
+            color: black;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
@@ -48,6 +46,7 @@
         .btn:hover {
             background-color: #45a049;
             transform: translateY(-2px);
+            color: #fff;
         }
 
         .recipe-list {
@@ -83,7 +82,7 @@
 
         .recipe-item a {
             display: block;
-            color: #333;
+            /* color: #333; */
             text-decoration: none;
             font-size: 20px;
             font-weight: bold;
@@ -91,7 +90,7 @@
         }
 
         .recipe-item a:hover {
-            color: #4CAF50;
+            /* color: white; */
         }
 
         .recipe-actions {
@@ -105,29 +104,34 @@
             display: inline-block;
             padding: 8px 16px;
             font-size: 14px;
-            color: white;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            min-width: 10px; /* Ensure buttons have a minimum width */
-            box-sizing: border-box; /* Ensure padding and border are included in width */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .btn-edit {
             background-color: #4CAF50;
+            color: black; Default text color
         }
 
         .btn-edit:hover {
             background-color: #45a049;
+            color: white; Text color changes to white on hover
         }
 
         .btn-delete {
             background-color: #f44336;
+            border: none;
+            width: 6rem;
+            color: black;
+            font-weight: bold;
+            font-size: 22px;
         }
 
         .btn-delete:hover {
             background-color: #e53935;
+            color: white;
         }
 
         @media (max-width: 768px) {

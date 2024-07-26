@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('home');
+//     return view('welcome');
 // });
 
 // Halaman depan yang menampilkan daftar resep
@@ -27,7 +27,7 @@ Route::get('/', [ResepController::class, 'index'])->name('home');
 
 // Rute CRUD untuk resep
 Route::resource('reseps', ResepController::class);
-Route::get('reseps/{resep}', [ResepController::class, 'show'])->name('reseps.show');
+Route::get('bahans/{resep}', [ResepController::class, 'show'])->name('reseps.show');
 
 
 
